@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres
+    container_name: hotel_db_container
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: a1b2c3d4
+      POSTGRES_DB: hotel_db
+    ports:
+      - "5432:5432"
+
+  api:
+    build: ./my-hotel-backend
+    container_name: hotel_backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=admin
+      - DB_PASSWORD=a1b2c3d4
+      - DB_DATABASE=hotel_db
+      - JWT_SECRET=minha_chave_secreta_super_segura
