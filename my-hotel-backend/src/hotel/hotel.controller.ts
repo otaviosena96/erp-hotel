@@ -8,6 +8,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class HotelController {
   constructor(private readonly hotelService: HotelService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createHotelDto: CreateHotelDto) {
     return this.hotelService.create(createHotelDto);
@@ -23,18 +24,21 @@ export class HotelController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.hotelService.findOne(+id);
+    return this.hotelService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateHotelDto: UpdateHotelDto) {
-    return this.hotelService.update(+id, updateHotelDto);
+    return this.hotelService.update(id, updateHotelDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.hotelService.remove(+id);
+    return this.hotelService.remove(id);
   }
 }
