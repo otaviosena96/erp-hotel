@@ -19,7 +19,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class HotelController {
   constructor(private readonly hotelService: HotelService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)  
   @Post()
   create(@Body() createHotelDto: CreateHotelDto) {
     return this.hotelService.create(createHotelDto);
