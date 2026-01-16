@@ -18,7 +18,24 @@ export class ReservationService {
     
     if (checkOut <= checkIn) {
       throw new BadRequestException('Check-out deve ser posterior ao check-in');
+    }   
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (checkIn < today) {
+      throw new BadRequestException('Check-in deve ser posterior ao dia atual');
     }
+
+  
+    const maxCheckOut = new Date(checkIn);
+    maxCheckOut.setDate(maxCheckOut.getDate() + 31);
+    
+    if (checkOut > maxCheckOut) {
+      throw new BadRequestException('Check-out deve ser no máximo 31 dias a partir do check-in');
+    }
+
+
     
     const reservation = this.reservationRepository.create(createReservationDto);
     return await this.reservationRepository.save(reservation);
