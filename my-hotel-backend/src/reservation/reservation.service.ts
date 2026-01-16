@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -13,6 +13,13 @@ export class ReservationService {
   ) {}
 
   async create(createReservationDto: CreateReservationDto) {
+    const checkIn = new Date(createReservationDto.checkIn);
+    const checkOut = new Date(createReservationDto.checkOut);
+    
+    if (checkOut <= checkIn) {
+      throw new BadRequestException('Check-out deve ser posterior ao check-in');
+    }
+    
     const reservation = this.reservationRepository.create(createReservationDto);
     return await this.reservationRepository.save(reservation);
   }

@@ -10,8 +10,12 @@ export class ReservationController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
-    return this.reservationService.create(createReservationDto);
+  async create(@Body() createReservationDto: CreateReservationDto) {
+    try {
+      return await this.reservationService.create(createReservationDto);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   @UseGuards(JwtAuthGuard)
