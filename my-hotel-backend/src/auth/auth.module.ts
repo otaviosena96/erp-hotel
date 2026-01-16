@@ -12,7 +12,7 @@ import { User } from './entities/user.entity';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PassportModule,
-    TypeOrmModule.forFeature([User]),    
+    TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1h' },

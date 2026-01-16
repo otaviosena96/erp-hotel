@@ -17,7 +17,7 @@ export class HotelService {
   }
 
   async findAll() {
-    return await this.hotelRepository.find()  
+    return await this.hotelRepository.find();
   }
 
   findOne(id: string) {

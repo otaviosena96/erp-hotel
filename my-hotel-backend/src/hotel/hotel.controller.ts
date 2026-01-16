@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { HotelService } from './hotel.service';
 import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
@@ -13,7 +24,7 @@ export class HotelController {
   create(@Body() createHotelDto: CreateHotelDto) {
     return this.hotelService.create(createHotelDto);
   }
- 
+
   @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {

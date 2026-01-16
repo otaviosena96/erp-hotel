@@ -1,12 +1,11 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
   Delete,
-  NotFoundException
 } from '@nestjs/common';
 import { GuestService } from './guest.service';
 import { CreateGuestDto } from './dto/create-guest.dto';
@@ -38,8 +37,8 @@ export class GuestController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string, 
-    @Body() updateGuestDto: UpdateGuestDto
+    @Param('id') id: string,
+    @Body() updateGuestDto: UpdateGuestDto,
   ) {
     return await this.guestService.update(id, updateGuestDto);
   }

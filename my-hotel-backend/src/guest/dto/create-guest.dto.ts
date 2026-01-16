@@ -1,14 +1,10 @@
-import { 
-  IsString, 
-  IsNotEmpty, 
-  MaxLength, 
-  IsEnum, 
+import {
+  IsString,
+  IsNotEmpty,
+  MaxLength,
+  IsEnum,
   IsUUID,
-  registerDecorator,
-  ValidationOptions
 } from 'class-validator';
-
-
 
 export class CreateGuestDto {
   @IsString()

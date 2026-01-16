@@ -13,13 +13,15 @@ export class ReservationService {
   ) {}
 
   async create(createReservationDto: CreateReservationDto) {
-    this.validateReservationDates(createReservationDto.checkIn, createReservationDto.checkOut);
-    
+    this.validateReservationDates(
+      createReservationDto.checkIn,
+      createReservationDto.checkOut,
+    );
+
     const reservation = this.reservationRepository.create(createReservationDto);
     return await this.reservationRepository.save(reservation);
   }
 
-  
   async findAll(): Promise<Reservation[]> {
     return await this.reservationRepository.find();
   }
@@ -28,9 +30,15 @@ export class ReservationService {
     return await this.reservationRepository.findOne({ where: { id } });
   }
 
-  async update(id: string, updateReservationDto: UpdateReservationDto): Promise<void> {
+  async update(
+    id: string,
+    updateReservationDto: UpdateReservationDto,
+  ): Promise<void> {
     if (updateReservationDto.checkIn && updateReservationDto.checkOut) {
-      this.validateReservationDates(updateReservationDto.checkIn, updateReservationDto.checkOut);
+      this.validateReservationDates(
+        updateReservationDto.checkIn,
+        updateReservationDto.checkOut,
+      );
     }
     await this.reservationRepository.update(id, updateReservationDto);
   }
@@ -38,11 +46,11 @@ export class ReservationService {
   async remove(id: string): Promise<void> {
     await this.reservationRepository.delete(id);
   }
-  
+
   private validateReservationDates(checkIn: string, checkOut: string): void {
     const checkInDate = new Date(checkIn);
     const checkOutDate = new Date(checkOut);
-    
+
     this.validateCheckOutAfterCheckIn(checkInDate, checkOutDate);
     this.validateCheckInNotInPast(checkInDate);
     this.validateMaximumStayDuration(checkInDate, checkOutDate);
@@ -67,9 +75,11 @@ export class ReservationService {
     const MAX_STAY_DAYS = 31;
     const maxCheckOut = new Date(checkIn);
     maxCheckOut.setDate(maxCheckOut.getDate() + MAX_STAY_DAYS);
-    
+
     if (checkOut > maxCheckOut) {
-      throw new BadRequestException(`Check-out deve ser no máximo ${MAX_STAY_DAYS} dias a partir do check-in`);
+      throw new BadRequestException(
+        `Check-out deve ser no máximo ${MAX_STAY_DAYS} dias a partir do check-in`,
+      );
     }
   }
 }

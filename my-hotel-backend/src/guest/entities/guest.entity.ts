@@ -1,12 +1,12 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  Column, 
-  ManyToOne, 
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
   JoinColumn,
-  CreateDateColumn, 
+  CreateDateColumn,
   UpdateDateColumn,
-  Unique
+  Unique,
 } from 'typeorm';
 import { Reservation } from '../../reservation/entities/reservation.entity';
 

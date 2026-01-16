@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGuestDto } from './dto/create-guest.dto';
@@ -15,8 +19,11 @@ export class GuestService {
 
   async create(createGuestDto: CreateGuestDto): Promise<Guest> {
     this.validateGuestData(createGuestDto);
-    await this.validateGuestUniqueInReservation(createGuestDto.document, createGuestDto.reservationId);
-    
+    await this.validateGuestUniqueInReservation(
+      createGuestDto.document,
+      createGuestDto.reservationId,
+    );
+
     const guest = this.guestRepository.create(createGuestDto);
     return await this.guestRepository.save(guest);
   }
@@ -26,8 +33,8 @@ export class GuestService {
   }
 
   async findByReservation(reservationId: string): Promise<Guest[]> {
-    return await this.guestRepository.find({ 
-      where: { reservationId } 
+    return await this.guestRepository.find({
+      where: { reservationId },
     });
   }
 
@@ -41,16 +48,16 @@ export class GuestService {
 
   async update(id: string, updateGuestDto: UpdateGuestDto): Promise<Guest> {
     const existingGuest = await this.findOne(id);
-    
+
     this.validateDocumentUpdate(updateGuestDto);
-    
+
     await this.validateUniquenessOnUpdate(existingGuest, updateGuestDto);
-    
+
     await this.guestRepository.update(id, updateGuestDto);
-    
+
     return await this.findOne(id);
   }
-  
+
   async remove(id: string): Promise<void> {
     const guest = await this.findOne(id);
     await this.guestRepository.delete(id);
@@ -58,19 +65,29 @@ export class GuestService {
 
   private validateDocumentUpdate(updateGuestDto: UpdateGuestDto): void {
     if (updateGuestDto.document && updateGuestDto.documentType) {
-      this.validateDocument(updateGuestDto.document, updateGuestDto.documentType);
+      this.validateDocument(
+        updateGuestDto.document,
+        updateGuestDto.documentType,
+      );
     }
   }
 
   private async validateUniquenessOnUpdate(
-    existingGuest: Guest, 
-    updateGuestDto: UpdateGuestDto, 
+    existingGuest: Guest,
+    updateGuestDto: UpdateGuestDto,
   ): Promise<void> {
     const newDocument = updateGuestDto.document || existingGuest.document;
-    const newReservationId = updateGuestDto.reservationId || existingGuest.reservationId;
-    
-    if (newDocument !== existingGuest.document || newReservationId !== existingGuest.reservationId) {
-      await this.validateGuestUniqueInReservation(newDocument, newReservationId);
+    const newReservationId =
+      updateGuestDto.reservationId || existingGuest.reservationId;
+
+    if (
+      newDocument !== existingGuest.document ||
+      newReservationId !== existingGuest.reservationId
+    ) {
+      await this.validateGuestUniqueInReservation(
+        newDocument,
+        newReservationId,
+      );
     }
   }
 
@@ -78,23 +95,31 @@ export class GuestService {
     this.validateDocument(createGuestDto.document, createGuestDto.documentType);
   }
 
-  private validateDocument(document: string, documentType: 'CPF' | 'PASSPORT'): void {
+  private validateDocument(
+    document: string,
+    documentType: 'CPF' | 'PASSPORT',
+  ): void {
     if (documentType === 'CPF') {
       if (!cpf.isValid(document)) {
         throw new BadRequestException('CPF inválido');
       }
-    } else  {
+    } else {
       if (document.length < 6 || document.length > 20) {
-        throw new BadRequestException('Passaporte deve conter entre 6 e 20 caracteres');
+        throw new BadRequestException(
+          'Passaporte deve conter entre 6 e 20 caracteres',
+        );
       }
     }
   }
 
-  private async validateGuestUniqueInReservation(document: string, reservationId: string): Promise<void> {
-    const existingGuest = await this.guestRepository.findOne({ 
-      where: { document, reservationId } 
+  private async validateGuestUniqueInReservation(
+    document: string,
+    reservationId: string,
+  ): Promise<void> {
+    const existingGuest = await this.guestRepository.findOne({
+      where: { document, reservationId },
     });
-    
+
     if (existingGuest) {
       throw new BadRequestException('Hóspede já está cadastrado nesta reserva');
     }

@@ -1,11 +1,11 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  Column, 
-  ManyToOne, 
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
   JoinColumn,
-  CreateDateColumn, 
-  UpdateDateColumn 
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Hotel } from '../../hotel/entities/hotel.entity';
 

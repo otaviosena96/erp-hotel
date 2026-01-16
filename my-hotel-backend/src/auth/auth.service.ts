@@ -14,7 +14,9 @@ export class AuthService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    const adminExists = await this.userRepo.findOne({ where: { username: 'admin' } });
+    const adminExists = await this.userRepo.findOne({
+      where: { username: 'admin' },
+    });
     if (!adminExists) {
       const admin = this.userRepo.create({
         username: 'admin',
@@ -31,13 +33,13 @@ export class AuthService implements OnModuleInit {
     };
   }
 
-    async validateUser(username: string, pass: string): Promise<any> {
-      const user = await this.userRepo.findOne({ where: { username } });
-    
-      if (user && user.password === pass) {
-        const { password, ...result } = user;
-        return result;
-      }
-      return null;
+  async validateUser(username: string, pass: string): Promise<any> {
+    const user = await this.userRepo.findOne({ where: { username } });
+
+    if (user && user.password === pass) {
+      const { password, ...result } = user;
+      return result;
     }
+    return null;
+  }
 }
