@@ -1,4 +1,5 @@
 export { AddHotelForm } from './add-hotel-form'
+export { AddReservationForm } from './add-reservation-form'
 export { HotelForm } from './forms/hotel-form'
 export { ErrorModal } from './modals/error-modal'
 export { SheetModal } from './modals/sheet-modal'

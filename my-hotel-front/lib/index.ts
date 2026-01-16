@@ -1,3 +1,5 @@
 export * from './services/api'
 export * from './services/hotel-service'
+export * from './services/reservation-service'
 export * from './schemas/hotel'
+export * from './schemas/reservation'
