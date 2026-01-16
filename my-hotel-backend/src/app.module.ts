@@ -6,6 +6,8 @@ import { HotelModule } from './hotel/hotel.module';
 import { Hotel } from './hotel/entities/hotel.entity';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { ReservationModule } from './reservation/reservation.module';
+import { Reservation } from './reservation/entities/reservation.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -16,12 +18,13 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [Hotel],
+      entities: [Hotel, Reservation],
       autoLoadEntities: true, 
       synchronize: true,
     }),
     HotelModule,
-    AuthModule,],
+    AuthModule,
+    ReservationModule,],
   controllers: [AppController],
   providers: [AppService],
 })
