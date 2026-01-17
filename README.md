@@ -2,13 +2,13 @@
 
 Sistema Full Stack para gestão hoteleira.
 
-## � Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, você precisa ter instalado:
 - [Docker](https://docs.docker.com/get-docker/) - Para rodar os containers
 - [Docker Compose](https://docs.docker.com/compose/install/) - Para orquestrar os serviços
 
-## � Como Rodar (Primeira Vez)
+## Como Rodar (Primeira Vez)
 
 ### 1. Clone o repositório
 ```bash
@@ -53,7 +53,7 @@ Para reconstruir após mudanças no código:
 docker-compose up -d --build
 ```
 
-## � Rodar Sem Docker (Desenvolvimento Local)
+##  Rodar Sem Docker (Desenvolvimento Local)
 
 ### Pré-requisitos Adicionais
 - [Node.js](https://nodejs.org/) (versão 20 ou superior)
