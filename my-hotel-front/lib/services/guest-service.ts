@@ -2,7 +2,7 @@ import { createApiUrl } from '../config/api'
 
 export const guestService = {
   async create(data: any) {
-    const response = await fetch(createApiUrl('/guest'), {
+    const response = await fetch(createApiUrl('/guests'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
