@@ -83,7 +83,10 @@ DB_DATABASE=hotel_db
 JWT_SECRET=sua_chave_secreta_aqui
 
 # Porta do servidor
-PORT=3000
+PORT=3001
+
+# URL do Frontend (para CORS)
+FRONTEND_URL=http://localhost:3000
 ```
 
 Inicie o backend:
@@ -99,7 +102,7 @@ npm install
 
 Crie o arquivo `.env.local`:
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:3001
 ```
 
 Inicie o frontend:
@@ -109,7 +112,7 @@ npm run dev
 
 ### 3. Acesse as aplicações
 - Frontend: http://localhost:3000
-- Backend API: http://localhost:3000
+- Backend API: http://localhost:3001
 
 ## �🐛 Troubleshooting
 
