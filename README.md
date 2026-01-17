@@ -38,6 +38,22 @@ O `--build` é **necessário na primeira vez** para criar as imagens Docker do f
 
 
 
+## 🚀 Features Experimentais
+
+Para testar funcionalidades experimentais, use a branch `experimental-hospedes`:
+
+```bash
+git checkout experimental-hospedes
+docker-compose up -d --build
+```
+
+**Features disponíveis nesta branch:**
+- ✅ **Agrupamento de Hóspedes**: Hóspedes únicos com múltiplas reservas
+- ✅ **Modal de Reservas do Hóspede**: Visualização completa de todas as reservas por hóspede
+- ✅ **Filtros Avançados**: Busca por nome e documento
+
+---
+
 Para reconstruir após mudanças no código:
 ```bash
 docker-compose up -d --build
