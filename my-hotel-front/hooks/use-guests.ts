@@ -19,6 +19,11 @@ export function useGuests(reservationId: string) {
     if (!reservationId) return
     
     try {
+      setLoading(true)
+      setGuests([])
+      
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      
       const data = await guestService.findByReservation(reservationId)
       setGuests(data as Guest[])
     } catch (error) {
@@ -30,6 +35,14 @@ export function useGuests(reservationId: string) {
 
   useEffect(() => {
     loadGuests()
+  }, [reservationId])
+
+  // Limpa dados quando reservationId for vazio
+  useEffect(() => {
+    if (!reservationId) {
+      setGuests([])
+      setLoading(false)
+    }
   }, [reservationId])
 
   return { guests, loading, loadGuests }
