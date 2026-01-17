@@ -2,6 +2,7 @@ import * as React from "react"
 
 import { SearchForm } from "@/components/search-form"
 import { VersionSwitcher } from "@/components/version-switcher"
+import { Hotel, Calendar } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -25,10 +26,12 @@ const data = {
         {
           title: "Hotéis",
           url: "/hotel",
+          icon: Hotel,
         },
         {
           title: "Reservas",
           url: "/reservation",
+          icon: Calendar,
         },
        
       ],
@@ -43,7 +46,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
      
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
@@ -52,7 +54,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>{item.title}</a>
+                      <a href={item.url}>
+                        {item.icon && <item.icon className="h-4 w-4" />}
+                        {item.title}
+                      </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
