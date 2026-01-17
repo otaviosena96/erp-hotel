@@ -1,6 +1,14 @@
 "use client"
 
 import { createApiUrl } from '@/lib/config/api'
+
+const handleAuthError = (status: number) => {
+  if (status === 401) {
+    localStorage.removeItem('token')
+    window.location.href = '/login'
+  }
+}
+
 import { useEffect, useState } from "react"
 import { Calendar, Hotel, Users, TrendingUp, BedDouble, DollarSign } from "lucide-react"
 import {
@@ -55,6 +63,10 @@ export default function Dashboard() {
           'Authorization': `Bearer ${token}`
         }
       })
+      if (!reservationsResponse.ok) {
+    handleAuthError(reservationsResponse.status)
+    throw new Error('Falha ao buscar reservas')
+}
       const reservations = await reservationsResponse.json()
 
       // Buscar todos os hotéis
@@ -63,6 +75,10 @@ export default function Dashboard() {
           'Authorization': `Bearer ${token}`
         }
       })
+      if (!hotelsResponse.ok) {
+        handleAuthError(hotelsResponse.status)
+        throw new Error('Falha ao buscar hotéis')
+      }
       const hotels = await hotelsResponse.json()
 
       // Calcular estatísticas

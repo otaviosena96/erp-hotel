@@ -1,6 +1,14 @@
 "use client"
 
 import { createApiUrl } from '@/lib/config/api'
+
+const handleAuthError = (status: number) => {
+  if (status === 401) {
+    localStorage.removeItem('token')
+    window.location.href = '/login'
+  }
+}
+
 import { useEffect, useState } from "react"
 import {
   Table,
@@ -25,6 +33,10 @@ export default function Hotel() {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })
+      if (!response.ok) {
+        handleAuthError(response.status)
+        throw new Error('Falha ao buscar dados')
+      }
       const json = await response.json()
       setData(json)
     } catch (error) {
@@ -33,7 +45,6 @@ export default function Hotel() {
       setLoading(false)
     }
   }
-
   useEffect(() => {
     fetchData()
   }, [])
@@ -62,24 +73,24 @@ export default function Hotel() {
           </div>
         ) : (
           <div className="border rounded-lg">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead>Cidade</TableHead>
-              <TableHead>Nº de quartos</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((item: any) => (
-              <TableRow key={item.id}>
-                <TableCell className="font-medium">{item.name}</TableCell>
-                <TableCell>{item.city}</TableCell>
-                <TableCell>{item.roomQuantity}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Cidade</TableHead>
+                  <TableHead>Nº de quartos</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.map((item: any) => (
+                  <TableRow key={item.id}>
+                    <TableCell className="font-medium">{item.name}</TableCell>
+                    <TableCell>{item.city}</TableCell>
+                    <TableCell>{item.roomQuantity}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         )}
       </div>

@@ -14,8 +14,8 @@ const getAuthHeaders = (): Record<string, string> => {
 
 const handleAuthError = (status: number) => {
   if (status === 401) {
-    window.location.href = '/login'
     localStorage.removeItem('token')
+    window.location.href = '/login'
   }
 }
 
