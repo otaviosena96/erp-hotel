@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: a1b2c3d4
+      POSTGRES_PASSWORD: 123456
       POSTGRES_DB: hotel_db
     ports:
       - "5432:5432"
@@ -21,7 +21,7 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_USERNAME=admin
-      - DB_PASSWORD=a1b2c3d4
+      - DB_PASSWORD=123456
       - DB_DATABASE=hotel_db
       - JWT_SECRET=minha_chave_secreta_super_segura
 

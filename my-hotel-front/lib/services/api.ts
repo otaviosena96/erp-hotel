@@ -12,6 +12,13 @@ const getAuthHeaders = (): Record<string, string> => {
   return token ? { 'Authorization': `Bearer ${token}` } : {}
 }
 
+const handleAuthError = (status: number) => {
+  if (status === 401) {
+    window.location.href = '/login'
+    localStorage.removeItem('token')
+  }
+}
+
 export const api = {
   async post<T>(endpoint: string, data: any): Promise<T> {
     const headers: Record<string, string> = {
@@ -26,6 +33,7 @@ export const api = {
     })
 
     if (!response.ok) {
+      handleAuthError(response.status)
       const errorData = await response.json().catch(() => ({}))
       throw new ApiError(errorData.message || 'Request failed', response.status)
     }
@@ -41,6 +49,7 @@ export const api = {
     })
 
     if (!response.ok) {
+      handleAuthError(response.status)
       const errorData = await response.json().catch(() => ({}))
       throw new ApiError(errorData.message || 'Request failed', response.status)
     }
