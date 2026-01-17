@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { SearchForm } from "@/components/search-form"
 import { VersionSwitcher } from "@/components/version-switcher"
-import { Hotel, Calendar, LayoutDashboard } from "lucide-react"
+import { Hotel, Calendar, LayoutDashboard, Users } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -36,6 +36,11 @@ const data = {
           title: "Reservas",
           url: "/reservation",
           icon: Calendar,
+        },
+        {
+          title: "Hóspedes",
+          url: "/guest",
+          icon: Users,
         },
        
       ],

@@ -4,9 +4,10 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { CreateGuestDto } from './dto/create-guest.dto';
 import { UpdateGuestDto } from './dto/update-guest.dto';
+import { FilterGuestDto } from './dto/filter-guest.dto';
 import { Guest } from './entities/guest.entity';
 import { cpf } from 'cpf-cnpj-validator';
 
@@ -29,8 +30,18 @@ export class GuestService {
     return await this.guestRepository.save(guest);
   }
 
-  async findAll(): Promise<Guest[]> {
-    return await this.guestRepository.find();
+  async findAll(filters: FilterGuestDto = {}): Promise<Guest[]> {
+    const where: any = {};
+
+    if (filters.guestName) {
+      where.guestName = Like(`%${filters.guestName}%`);
+    }
+
+    if (filters.document) {
+      where.document = Like(`%${filters.document}%`);
+    }
+
+    return await this.guestRepository.find({ where });
   }
 
   async findByReservation(reservationId: string): Promise<Guest[]> {

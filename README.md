@@ -13,7 +13,7 @@ Antes de começar, você precisa ter instalado:
 ### 1. Clone o repositório
 ```bash
 git clone <URL_DO_REPOSITORIO>
-cd my-hotel
+cd erp-hotel
 ```
 
 ### 2. Configure o ambiente
