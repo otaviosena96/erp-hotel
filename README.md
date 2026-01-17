@@ -13,7 +13,7 @@ Antes de começar, você precisa ter instalado:
 ### 1. Clone o repositório
 ```bash
 git clone <URL_DO_REPOSITORIO>
-cd my-hotel
+cd erp-hotel
 ```
 
 ### 2. Configure o ambiente
@@ -37,6 +37,22 @@ O `--build` é **necessário na primeira vez** para criar as imagens Docker do f
 - Banco PostgreSQL: localhost:5432
 
 
+
+## 🚀 Features Experimentais
+
+Para testar funcionalidades experimentais, use a branch `experimental-hospedes`:
+
+```bash
+git checkout experimental-hospedes
+docker-compose up -d --build
+```
+
+**Features disponíveis nesta branch:**
+- ✅ **Agrupamento de Hóspedes**: Hóspedes únicos com múltiplas reservas
+- ✅ **Modal de Reservas do Hóspede**: Visualização completa de todas as reservas por hóspede
+- ✅ **Filtros Avançados**: Busca por nome e documento
+
+---
 
 Para reconstruir após mudanças no código:
 ```bash
