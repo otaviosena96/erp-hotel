@@ -19,6 +19,7 @@ export class GuestService {
 
   async create(createGuestDto: CreateGuestDto): Promise<Guest> {
     this.validateGuestData(createGuestDto);
+    await this.validateGuestLimitPerReservation(createGuestDto.reservationId);
     await this.validateGuestUniqueInReservation(
       createGuestDto.document,
       createGuestDto.reservationId,
@@ -122,6 +123,16 @@ export class GuestService {
 
     if (existingGuest) {
       throw new BadRequestException('Hóspede já está cadastrado nesta reserva');
+    }
+  }
+
+  private async validateGuestLimitPerReservation(reservationId: string): Promise<void> {
+    const currentGuests = await this.guestRepository.find({
+      where: { reservationId },
+    });
+
+    if (currentGuests.length >= 10) {
+      throw new BadRequestException('Limite de 10 hóspedes por reserva atingido');
     }
   }
 }
