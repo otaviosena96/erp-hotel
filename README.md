@@ -1,6 +1,6 @@
 # My Hotel - Sistema de Gestão Hoteleira
 
-Sistema Full Stack para gestão hoteleira com autenticação JWT.
+Sistema Full Stack para gestão hoteleira.
 
 ## 🚀 Como Rodar
 
