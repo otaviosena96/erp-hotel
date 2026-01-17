@@ -1,5 +1,6 @@
 "use client"
 
+import { createApiUrl } from '@/lib/config/api'
 import { useEffect, useState } from "react"
 import {
   Table,
@@ -17,7 +18,7 @@ export default function Hotel() {
 
   async function fetchData() {
     try {
-      const response = await fetch('http://localhost:3033/hotel', {
+      const response = await fetch(createApiUrl('/hotel'), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+import { API_CONFIG, createApiUrl } from '../config/api'
 
 export class ApiError extends Error {
   constructor(message: string, public status?: number) {
@@ -26,7 +26,7 @@ export const api = {
       ...getAuthHeaders(),
     }
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(createApiUrl(endpoint), {
       method: 'POST',
       headers,
       body: JSON.stringify(data),
@@ -44,7 +44,7 @@ export const api = {
   async get<T>(endpoint: string): Promise<T> {
     const headers = getAuthHeaders()
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    const response = await fetch(createApiUrl(endpoint), {
       headers,
     })
 

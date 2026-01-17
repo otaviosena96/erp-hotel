@@ -1,5 +1,6 @@
 "use client"
 
+import { createApiUrl } from '@/lib/config/api'
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -54,7 +55,7 @@ export default function Login() {
         setLoading(true)
 
         try {
-            const response = await fetch('http://localhost:3033/auth/login', {
+            const response = await fetch(createApiUrl('/auth/login'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

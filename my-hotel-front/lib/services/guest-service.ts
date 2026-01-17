@@ -1,8 +1,8 @@
-const API_BASE_URL = 'http://localhost:3033'
+import { createApiUrl } from '../config/api'
 
 export const guestService = {
   async create(data: any) {
-    const response = await fetch(`${API_BASE_URL}/guests`, {
+    const response = await fetch(createApiUrl('/guest'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export const guestService = {
   },
 
   async findByReservation(reservationId: string) {
-    const response = await fetch(`${API_BASE_URL}/guests/reservation/${reservationId}`, {
+    const response = await fetch(createApiUrl(`/guests/reservation/${reservationId}`), {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
