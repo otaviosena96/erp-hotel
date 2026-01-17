@@ -4,13 +4,11 @@ import { useState } from "react"
 import dynamic from "next/dynamic"
 
 const AddReservationForm = dynamic(() => import("@/components/add-reservation-form"), {
-  ssr: false,
-  loading: () => <div>Carregando...</div>
+  ssr: false
 })
 
 const GuestModal = dynamic(() => import("@/components/modals/guest-modal"), {
-  ssr: false,
-  loading: () => <div>Carregando...</div>
+  ssr: false
 })
 
 import { useReservations } from "@/hooks/use-reservations"

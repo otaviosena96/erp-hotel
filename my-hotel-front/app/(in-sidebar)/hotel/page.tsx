@@ -40,13 +40,19 @@ export default function Hotel() {
   if (loading) return <p className="p-10">Carregando dados...</p>
 
   return (
-    <div className="p-10">
-      <div className="flex justify-between items-center mb-5">
-        <h1 className="text-2xl font-bold">Lista de Hotéis</h1>
+    <div className="flex flex-col space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Cadastro de Hotéis</h1>
+          <p className="text-muted-foreground">
+            Gerencie os hotéis do seu grupo
+          </p>
+        </div>
         <AddHotelForm onSuccess={fetchData} />
       </div>
       
-      <div className="rounded-md border">
+      <div className="grid gap-6">
+        <div className="border rounded-lg">
         <Table>
           <TableHeader>
             <TableRow>
@@ -65,6 +71,7 @@ export default function Hotel() {
             ))}
           </TableBody>
         </Table>
+        </div>
       </div>
     </div>
   )
