@@ -40,10 +40,10 @@ O `--build` é **necessário na primeira vez** para criar as imagens Docker do f
 
 ## 🚀 Features Experimentais
 
-Para testar funcionalidades experimentais, use a branch `experimental-hospedes`:
+Para testar funcionalidades experimentais, use a branch `experimental`:
 
 ```bash
-git checkout experimental-hospedes
+git checkout experimental
 docker-compose up -d --build
 ```
 
