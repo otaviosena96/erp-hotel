@@ -67,7 +67,7 @@ export default function Login() {
             }
             console.log("Sucesso:", data);
             localStorage.setItem('token', data.access_token);
-            router.push('/home');
+            router.push('/dashboard');
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Ocorreu um erro ao tentar fazer login';
             setErrorDialog({
