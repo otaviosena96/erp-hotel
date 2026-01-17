@@ -1,6 +1,18 @@
 "use client"
 
-import { AddReservationForm } from "@/components/add-reservation-form"
+import { useState } from "react"
+import dynamic from "next/dynamic"
+
+const AddReservationForm = dynamic(() => import("@/components/add-reservation-form"), {
+  ssr: false,
+  loading: () => <div>Carregando...</div>
+})
+
+const GuestModal = dynamic(() => import("@/components/modals/guest-modal"), {
+  ssr: false,
+  loading: () => <div>Carregando...</div>
+})
+
 import { useReservations } from "@/hooks/use-reservations"
 import {
   Table,
@@ -10,9 +22,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Eye } from "lucide-react"
 
 export default function ReservationPage() {
   const { reservations, loading, loadReservations } = useReservations()
+  const [selectedReservation, setSelectedReservation] = useState<any>(null)
 
   const handleSuccess = () => {
     loadReservations()
@@ -53,6 +67,7 @@ export default function ReservationPage() {
                   <TableHead>Responsável</TableHead>
                   <TableHead>Check-in</TableHead>
                   <TableHead>Check-out</TableHead>
+                  <TableHead>Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -63,7 +78,18 @@ export default function ReservationPage() {
                     </TableCell>
                     <TableCell>{reservation.responsibleName}</TableCell>
                     <TableCell>{formatDate(reservation.checkIn)}</TableCell>
-                    <TableCell>{formatDate(reservation.checkOut)}</TableCell>                   
+                    <TableCell>{formatDate(reservation.checkOut)}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setSelectedReservation(reservation)}
+                          className="inline-flex items-center gap-1 px-3 py-1 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
+                        >
+                          <Eye className="h-4 w-4" />
+                          Ver Hóspedes
+                        </button>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -71,6 +97,12 @@ export default function ReservationPage() {
           </div>
         )}
       </div>
+
+      <GuestModal 
+        reservation={selectedReservation || undefined}
+        onClose={() => setSelectedReservation(null)}
+        onSuccess={handleSuccess}
+      />
     </div>
   )
 }

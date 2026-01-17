@@ -41,7 +41,7 @@ interface AddReservationFormProps {
   onSuccess: () => void;
 }
 
-export function AddReservationForm({ onSuccess }: AddReservationFormProps) {
+export default function AddReservationForm({ onSuccess }: AddReservationFormProps) {
   const [open, setOpen] = useState(false)
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false)
   const [errorTitle, setErrorTitle] = useState("")
