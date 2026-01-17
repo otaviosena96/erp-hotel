@@ -162,9 +162,10 @@ export default function Dashboard() {
     )
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('pt-BR')
-  }
+   const formatDate = (dateString: string) => {
+    const [year, month, day] = dateString.split('-')
+    return `${day}/${month}/${year}`
+   }
 
   return (
     <div className="flex flex-col space-y-6">

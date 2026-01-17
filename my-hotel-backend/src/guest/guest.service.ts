@@ -126,13 +126,17 @@ export class GuestService {
     }
   }
 
-  private async validateGuestLimitPerReservation(reservationId: string): Promise<void> {
+  private async validateGuestLimitPerReservation(
+    reservationId: string,
+  ): Promise<void> {
     const currentGuests = await this.guestRepository.find({
       where: { reservationId },
     });
 
     if (currentGuests.length >= 10) {
-      throw new BadRequestException('Limite de 10 hóspedes por reserva atingido');
+      throw new BadRequestException(
+        'Limite de 10 hóspedes por reserva atingido',
+      );
     }
   }
 }
