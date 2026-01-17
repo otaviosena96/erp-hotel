@@ -20,7 +20,7 @@ interface GuestModalProps {
 }
 
 export default function GuestModal({ reservation, onClose, onSuccess }: GuestModalProps) {
-  const { guests, loading } = useGuests(reservation?.id || '')
+  const { guests, loading, loadGuests } = useGuests(reservation?.id || '')
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('pt-BR')
@@ -59,8 +59,8 @@ export default function GuestModal({ reservation, onClose, onSuccess }: GuestMod
             <GuestForm 
               reservationId={reservation.id} 
               onSuccess={() => {
+                loadGuests()
                 onSuccess()
-                onClose()
               }} 
             />
           </div>
