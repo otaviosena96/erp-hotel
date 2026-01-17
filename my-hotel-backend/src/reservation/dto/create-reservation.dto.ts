@@ -5,6 +5,7 @@ import {
   IsDateString,
   IsUUID,
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateReservationDto {
   @IsUUID()
@@ -22,5 +23,6 @@ export class CreateReservationDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
+  @Transform(({ value }) => value?.toUpperCase())
   responsibleName: string;
 }

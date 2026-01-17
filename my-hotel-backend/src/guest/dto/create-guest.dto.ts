@@ -5,11 +5,13 @@ import {
   IsEnum,
   IsUUID,
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateGuestDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
+  @Transform(({ value }) => value?.toUpperCase())
   guestName: string;
 
   @IsString()
