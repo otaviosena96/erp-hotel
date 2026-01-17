@@ -36,17 +36,7 @@ O `--build` é **necessário na primeira vez** para criar as imagens Docker do f
 - Backend API: http://localhost:3000
 - Banco PostgreSQL: localhost:5432
 
-## 🔄 Uso Diário
 
-Para parar os serviços:
-```bash
-docker-compose down
-```
-
-Para subir novamente (já com as imagens criadas):
-```bash
-docker-compose up -d
-```
 
 Para reconstruir após mudanças no código:
 ```bash
@@ -114,20 +104,6 @@ npm run dev
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:3001
 
-## �🐛 Troubleshooting
-
-### Portas já em uso?
-Se receber erro de porta em uso, altere as portas no `docker-compose.yml`:
-```yaml
-ports:
-  - "3002:3000"  # Muda frontend para porta 3002
-```
-
-### Problemas de permissão?
-No Linux, pode precisar usar `sudo`:
-```bash
-sudo docker-compose up -d --build
-```
 
 ## 🔐 Login
 
