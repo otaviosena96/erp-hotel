@@ -8,10 +8,12 @@ import {
   Delete,
   UseGuards,
   BadRequestException,
+  Query,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { FilterReservationDto } from './dto/filter-reservation.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('reservation')
@@ -30,9 +32,9 @@ export class ReservationController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll() {
+  async findAll(@Query() filters: FilterReservationDto) {
     try {
-      return await this.reservationService.findAll();
+      return await this.reservationService.findAll(filters);
     } catch (error) {
       throw new BadRequestException(
         'Erro ao buscar reservas: ' + error.message,

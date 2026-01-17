@@ -27,9 +27,9 @@ export function useReservations() {
   const [reservations, setReservations] = useState<Reservation[]>([])
   const [loading, setLoading] = useState(true)
 
-  const loadReservations = async () => {
+  const loadReservations = async (filters?: any) => {
     try {
-      const data = await reservationService.getAll()
+      const data = await reservationService.getAll(filters)
       setReservations(data as Reservation[])
     } catch (error) {
       console.error("Erro ao carregar reservas:", error)

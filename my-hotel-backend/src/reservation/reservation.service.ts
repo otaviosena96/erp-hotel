@@ -1,8 +1,9 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Between, Like } from 'typeorm';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { FilterReservationDto } from './dto/filter-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
 
 @Injectable()
@@ -22,8 +23,26 @@ export class ReservationService {
     return await this.reservationRepository.save(reservation);
   }
 
-  async findAll(): Promise<Reservation[]> {
-    return await this.reservationRepository.find();
+  async findAll(filters: FilterReservationDto = {}): Promise<Reservation[]> {
+    const where: any = {};
+
+    if (filters.checkInFrom && filters.checkInTo) {
+      where.checkIn = Between(new Date(filters.checkInFrom), new Date(filters.checkInTo));
+    } else if (filters.checkInFrom) {
+      where.checkIn = Between(new Date(filters.checkInFrom), new Date('2100-12-31'));
+    } else if (filters.checkInTo) {
+      where.checkIn = Between(new Date('1900-01-01'), new Date(filters.checkInTo));
+    }
+
+    if (filters.hotelId) {
+      where.hotelId = filters.hotelId;
+    }
+
+    if (filters.responsibleName) {
+      where.responsibleName = Like(`%${filters.responsibleName}%`);
+    }
+
+    return await this.reservationRepository.find({ where });
   }
 
   async findOne(id: string): Promise<Reservation | null> {

@@ -27,8 +27,22 @@ export const reservationService = {
     return response.json()
   },
 
-  async getAll() {
-    const response = await fetch(createApiUrl('/reservation'), {
+  async getAll(filters?: any) {
+    const params = new URLSearchParams();
+    
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== '') {
+          params.append(key, String(value));
+        }
+      });
+    }
+
+    const url = params.toString() 
+      ? createApiUrl(`/reservation?${params.toString()}`)
+      : createApiUrl('/reservation');
+
+    const response = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
