@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
+import { FilterHotelDto } from './dto/filter-hotel.dto';
 import { Hotel } from './entities/hotel.entity';
 
 @Injectable()
@@ -16,8 +17,18 @@ export class HotelService {
     return await this.hotelRepository.save(hotel);
   }
 
-  async findAll() {
-    return await this.hotelRepository.find();
+  async findAll(filters: FilterHotelDto = {}) {
+    const where: any = {};
+
+    if (filters.name) {
+      where.name = Like(`%${filters.name}%`);
+    }
+
+    if (filters.city) {
+      where.city = Like(`%${filters.city}%`);
+    }
+
+    return await this.hotelRepository.find({ where });
   }
 
   findOne(id: string) {

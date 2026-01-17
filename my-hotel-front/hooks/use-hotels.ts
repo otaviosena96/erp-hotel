@@ -16,9 +16,9 @@ export function useHotels() {
   const [hotels, setHotels] = useState<Hotel[]>([])
   const [loading, setLoading] = useState(true)
 
-  const loadHotels = async () => {
+  const loadHotels = async (filters?: any) => {
     try {
-      const data = await hotelService.getAll()
+      const data = await hotelService.getAll(filters)
       setHotels(data as Hotel[])
     } catch (error) {
       console.error("Erro ao carregar hotéis:", error)
@@ -31,5 +31,5 @@ export function useHotels() {
     loadHotels()
   }, [])
 
-  return { hotels, loading }
+  return { hotels, loading, loadHotels }
 }

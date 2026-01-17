@@ -9,10 +9,12 @@ import {
   UseGuards,
   BadRequestException,
   NotFoundException,
+  Query,
 } from '@nestjs/common';
 import { HotelService } from './hotel.service';
 import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
+import { FilterHotelDto } from './dto/filter-hotel.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('hotel')
@@ -27,9 +29,9 @@ export class HotelController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll() {
+  async findAll(@Query() filters: FilterHotelDto) {
     try {
-      return await this.hotelService.findAll();
+      return await this.hotelService.findAll(filters);
     } catch (error) {
       throw new BadRequestException('Erro ao buscar hotéis: ' + error.message);
     }
