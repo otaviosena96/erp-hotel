@@ -40,6 +40,7 @@ O `--build` é **necessário na primeira vez** para criar as imagens Docker do f
 
 ## 🚀 Features Experimentais
 
+> ⚠️ **Importante:** O token JWT está configurado para expirar em **1 minuto** para demonstrar o comportamento do sistema após expiração.
 Para testar funcionalidades experimentais, use a branch `experimental`:
 
 ```bash
