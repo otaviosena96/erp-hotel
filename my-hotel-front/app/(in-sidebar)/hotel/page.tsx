@@ -37,8 +37,6 @@ export default function Hotel() {
     fetchData()
   }, [])
 
-  if (loading) return <p className="p-10">Carregando dados...</p>
-
   return (
     <div className="flex flex-col space-y-6">
       <div className="flex justify-between items-center">
@@ -52,7 +50,17 @@ export default function Hotel() {
       </div>
       
       <div className="grid gap-6">
-        <div className="border rounded-lg">
+        {loading ? (
+          <div className="text-center py-12 text-muted-foreground">
+            <p>Carregando hotéis...</p>
+          </div>
+        ) : data.length === 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            <p>Nenhum hotel encontrado</p>
+            <p className="text-sm mt-2">Clique em "Novo Hotel" para criar o primeiro</p>
+          </div>
+        ) : (
+          <div className="border rounded-lg">
         <Table>
           <TableHeader>
             <TableRow>
@@ -71,7 +79,8 @@ export default function Hotel() {
             ))}
           </TableBody>
         </Table>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   )

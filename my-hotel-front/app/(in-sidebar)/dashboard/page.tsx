@@ -129,8 +129,18 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-muted-foreground">Carregando dashboard...</div>
+      <div className="flex flex-col space-y-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+            <p className="text-muted-foreground">
+              Bem-vindo ao seu painel de controle hoteleiro
+            </p>
+          </div>
+        </div>
+        <div className="text-center py-12 text-muted-foreground">
+          <p>Carregando dashboard...</p>
+        </div>
       </div>
     )
   }
