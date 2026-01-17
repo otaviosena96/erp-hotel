@@ -84,12 +84,17 @@ export default function Login() {
         <div className="flex items-center justify-center min-h-screen bg-gray-50">
             <Card className="w-full max-w-sm">
             <CardHeader>
-                <CardTitle>Faça o seu login</CardTitle>
-                <CardDescription>
-                insira seu usuario e senha
+                <CardTitle className="text-center text-2xl font-bold text-blue-600">MyHotel</CardTitle>
+                <CardDescription className="text-center">
+                    Sistema de Gestão Hoteleira<br/>
+                    <span className="text-sm text-muted-foreground">Gerencie seus hotéis, reservas e hóspedes com eficiência</span>
                 </CardDescription>           
             </CardHeader>
             <CardContent>
+                <div className="text-center mb-4">
+                    <h3 className="text-lg font-semibold">Faça o seu login</h3>
+                    <p className="text-sm text-muted-foreground">Insira seu usuário e senha para acessar o sistema</p>
+                </div>
                 <form id="login-form"  onSubmit={handleSubmit} >
                 <div className="flex flex-col gap-6">
                     <div className="grid gap-2">

@@ -22,8 +22,6 @@ export function useGuests(reservationId: string) {
       setLoading(true)
       setGuests([])
       
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
       const data = await guestService.findByReservation(reservationId)
       setGuests(data as Guest[])
     } catch (error) {
