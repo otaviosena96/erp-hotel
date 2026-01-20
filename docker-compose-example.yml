@@ -24,6 +24,7 @@ services:
       - DB_PASSWORD=123456
       - DB_DATABASE=hotel_db
       - JWT_SECRET=minha_chave_secreta_super_segura
+      - FRONTEND_URL=http://localhost:3001
 
   frontend:
     build: ./my-hotel-front
