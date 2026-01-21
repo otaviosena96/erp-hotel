@@ -32,8 +32,8 @@ docker-compose up -d --build
 O `--build` é **necessário na primeira vez** para criar as imagens Docker do frontend e backend.
 
 ### 4. Acesse as aplicações
-- Frontend: http://localhost:3001
-- Backend API: http://localhost:3000
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:3001
 - Banco PostgreSQL: localhost:5432
 
 
